@@ -1,0 +1,32 @@
+<div class="container mt-3">
+
+    <h1>Lista de Itens</h1>
+    <a href="/cadastro" class="btn btn-primary">Adicionar</a>
+    <hr>
+    <table class="table table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Raça</th>
+                <th scope="col">Casa</th>
+                <th scope="col">Altura</th>
+                <th scope="col">Nascimento</th>
+                <th scope="col">Imagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.raca }}</td>
+                <td>{{ item.casa }}</td>
+                <td>{{ item.altura }}</td>
+                <td>{{ item.nascimento }}</td>
+                <td>{{ item.imagem }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
