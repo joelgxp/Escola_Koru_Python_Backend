@@ -1,47 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
 <h1>Cadastro Personagens</h1>
 <form method="POST" enctype="multipart/form-data" action="" class="needs-validation" data-toggle="validator">
     <div class="form-group">
         <label for="id">ID:</label>
-        <input type="number" class="form-control" name="id" id="id" required>
+        <input type="number" class="form-control" name="id" id="id" value="{{ id }}" required>
         <div class="invalid-feedback">Campo Obrigatório.</div>
     </div>
 
     <div class="form-group">
         <label for="nome">Nome:</label>
-        <input type="text" class="form-control" name="nome" id="nome" required>
+        <input type="text" class="form-control" name="nome" id="nome" value="{{ nome }}" required>
         <div class="invalid-feedback">Campo Obrigatório.</div>
     </div>
 
     <div class="form-group">
         <label for="raca">Raça:</label>
-        <input type="text" class="form-control" name="raca" id="raca" required>
+        <input type="text" class="form-control" name="raca" id="raca" value="{{ raca }}" required>
         <div class="invalid-feedback">Campo Obrigatório.</div>
     </div>
 
     <div class="form-group">
         <label for="casa">Casa:</label>
-        <input type="text" class="form-control" name="casa" id="casa" required>
+        <input type="text" class="form-control" name="casa" id="casa" value="{{ casa }}" required>
         <div class="invalid-feedback">Campo Obrigatório.</div>
     </div>
 
     <div class="form-group">
         <label for="altura">Altura:</label>
-        <input type="text" class="form-control" name="altura" id="altura" required>
+        <input type="text" class="form-control" name="altura" id="altura" value ="{{ altura }}" required>
         <div class="invalid-feedback">Campo Obrigatório.</div>
     </div>
 
     <div class="form-group">
         <label for="nascimento">Nascimento:</label>
-        <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+        <input type="date" class="form-control" name="nascimento" id="nascimento" value="{{ nascimento }}" required>
         <div class="invalid-feedback">Campo Obrigatório.</div>
     </div>
 
     <div class="form-group">
         <label for="imagem">Imagem:</label>
-        <input type="file" class="form-control" name="imagem" id="imagem" required>
-        <div class="invalid-feedback">Campo Obrigatório.</div>
+        <input type="text" class="form-control" name="imagem" id="imagem" value="{{ imagem }}">
+        <img src="{{ imagem }}" style="max-width: 200px; max-height: 200px;">
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <input type="submit" class="btn btn-primary" name="salvar" value="salvar">
+    <a href="#" class="btn btn-secondary">Cancelar</a>
+
+    <input type="submit" class="btn btn-danger" name="excluir" value="excluir">
+
 </form>
 
+{% endblock %}
