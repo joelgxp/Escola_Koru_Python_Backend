@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    dicionario = repository.retornar_personagens()
-    return render_template("index.html", dados=dicionario)
+    lista_personagens = repository.retornar_personagens()
+    return render_template("index.html", dados=lista_personagens)
 
 @app.route("/personagem/<int:id>", methods=["GET", "POST"])
 def editar_personagem(id):
@@ -17,35 +17,24 @@ def editar_personagem(id):
             repository.remover_personagem(id)
             return redirect(url_for("home"))
         elif "salvar" in request.form:
-            personagem = {}
-            personagem["nome"] = request.form["nome"]
-            personagem["raca"] = request.form["raca"]
-            personagem["casa"] = request.form["casa"]
-            personagem["altura"] = request.form["altura"]
-            personagem["nascimento"] = request.form["nascimento"]
-            personagem["imagem"] = request.form["imagem"]
+            id = request.form["id"]
+            nome = request.form["nome"]
+            raca = request.form["raca"]
+            casa = request.form["casa"]
+            altura = request.form["altura"]
+            nascimento = request.form["nascimento"]
+            imagem = request.form["imagem"]
         
-            if id in repository.retornar_personagens().keys():
-                repository.atualizar_personagem(id, personagem)
+            dados_retornados = repository.retornar_personagem(id)
+            if dados_retornados:
+                repository.atualizar_personagem(id=id, nome=nome, raca=raca, casa=casa, altura=altura, nascimento=nascimento, imagem=imagem)
+            else:
+                repository.criar_personagem(nome=nome, raca=raca, casa=casa, altura=altura, nascimento=nascimento, imagem=imagem)
+
                 return redirect(url_for("home"))
     else:        
-        personagem = repository.retornar_personagem(id)
-        personagem["id"] = id
-        return render_template("cadastro.html", **personagem)
-    
-@app.route("/personagem", methods=["GET", "POST"])
-def criar_personagens():
-    if request.method == "POST":
-        personagem = {}
-        personagem["nome"] = request.form["nome"]
-        personagem["raca"] = request.form["raca"]
-        personagem["casa"] = request.form["casa"]
-        personagem["altura"] = request.form["altura"]
-        personagem["nascimento"] = request.form["nascimento"]
-        personagem["imagem"] = request.form["imagem"]
-        repository.criar_personagem(**personagem)
-        return redirect(url_for("home"))
-    else:
-        return render_template("cadastro.html", id=repository.gerar_id())
+        id, nome, raca, casa, nascimento, altura, imagem = repository.retornar_personagem(id)
 
+        return render_template("cadastro.html", id = id, nome = nome, raca = raca, casa = casa, nascimento = nascimento, altura = altura, imagem = imagem)
+    
 app.run(debug=True)
